@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamp('start_at');
             $table->timestamp('end_at')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

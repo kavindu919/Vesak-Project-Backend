@@ -22,4 +22,9 @@ class User extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'user_id');
+    }
 }
