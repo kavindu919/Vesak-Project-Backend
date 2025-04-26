@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
 
@@ -82,37 +81,7 @@ class UserController
         }
     }
 
-    /**
-     * Function for get all users
-     */
-    public function index(Request $request)
-    {
-        $request->validate([
-            'search' => 'nullable|string',
-            'role' => 'nullable|string'
-        ]);
-        try {
-            $users = User::when($request->get('type'), function ($query) use ($request) {
-                return $query->where('role', $request->get('role'));
-            })
-                ->when($request->get('search'), function ($query) use ($request) {
-                    return $query->where('name', 'like', '%' . $request->get('search') . '%')
-                        ->orWhere('email', 'like', '%' . $request->get('search') . '%');
-                })
-                ->paginate(10);
-            return response()->json([
-                'success' => true,
-                'message' => 'Data retrived successfully',
-                'data' => $users,
 
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage() ?: 'Something went wrong'
-            ], 400);
-        }
-    }
 
     /**
      * Function for edit user
