@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EventController
 {
@@ -35,17 +36,9 @@ class EventController
                     $query->whereDate('end_at', '<=', $endAt);
                 })
                 ->paginate(10);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Events retrieved successfully',
-                'data'    => $events
-            ], 200);
+            return view('Admin.Events.EventsTable', ['data' => $events]);
         } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage() ?: 'Failed to retrieve events'
-            ], 400);
+            Log::error("An error ocured", $e->getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 @extends('Admin.layout')
 
 @section('title')
-    Users Table
+    Events Table
 @endsection
 
 @section('content')
@@ -12,13 +12,25 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark1:bg-gray-700 dark1:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            User name
+                            Event name
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Email
+                            District
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Role
+                            province
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            venue
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            description
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            start time
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            end time
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -26,25 +38,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($data as $user)
+                    @forelse ($data as $event)
                         <tr class="bg-white border-b dark1:bg-gray-800 dark1:border-gray-700 border-gray-200">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark1:text-white">
-                                {{ $user->name }}
+                                {{ $event->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $user->email }}
+                                {{ $event->district }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $user->role }}
+                                {{ $event->province }}
                             </td>
                             <td class="px-6 py-4">
-                                $2999
+                                {{ $event->venue }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $event->description }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $event->start_at }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $event->end_at }}
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center py-4">
+                            <td colspan="8" class="text-center py-4">
                                 No Records To Preview
                             </td>
                         </tr>

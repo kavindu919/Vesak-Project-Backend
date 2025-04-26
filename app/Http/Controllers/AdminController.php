@@ -27,7 +27,7 @@ class AdminController
                         ->orWhere('email', 'like', '%' . $request->get('search') . '%');
                 })
                 ->paginate(10);
-            return view('Admin.layout', ['data' => $users]);
+            return view('Admin.Users.Userstable', ['data' => $users]);
         } catch (Exception $e) {
             Log::error("An error ocured", $e->getMessage());
         }

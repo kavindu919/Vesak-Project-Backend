@@ -40,7 +40,10 @@
                             <circle cx="10" cy="8" r="5" />
                             <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
                         </svg>
-                        <span>Users</span>
+                        <form action="{{ route('get-allusers') }}" method="GET">
+                            @csrf
+                            <button type="submit">Users</button>
+                        </form>
                     </li>
                     <li
                         class="flex flex-cols gap-2 hover:bg-white p-4 text-md font-semibold border
@@ -52,7 +55,10 @@
                             <path
                                 d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
                         </svg>
-                        <span>Events</span>
+                        <form action="{{ route('get-allevents') }}" method="GET">
+                            @csrf
+                            <button type="submit">Events</button>
+                        </form>
                     </li>
 
 
@@ -64,7 +70,7 @@
                 <span class="text-xl font-bold">@yield('title')</span>
                 <img src="https://picsum.photos/200/300" alt="User Avatar" class="w-10 h-10 rounded-full">
             </div>
-            <div class="p-4 h-full">
+            <div class="h-full w-full p-4">
                 @yield('content')
             </div>
         </div>
