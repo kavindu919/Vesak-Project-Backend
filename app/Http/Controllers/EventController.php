@@ -42,6 +42,16 @@ class EventController
         }
     }
 
+    /**
+     * Function for display the add event form
+     */
+    public function getAddEvent()
+    {
+        $districts = CommanController::getDistricts();
+        $provinces = CommanController::getProvinces();
+        return view('Admin.Events.Addevent', ['districts' => $districts, 'provinces' => $provinces]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -68,12 +78,9 @@ class EventController
                 'start_at' => $request->start_at,
                 'end_at' => $request->end_at,
             ]);
-            return response()->json(['success' => true, 'message' => 'Event created successfully'], 200);
+            return redirect()->back()->with('success', 'Event created successfully');
         } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage() ?: 'Failed to retrieve events'
-            ], 400);
+            Log::error("An error ocured", $e->getMessage());
         }
     }
 

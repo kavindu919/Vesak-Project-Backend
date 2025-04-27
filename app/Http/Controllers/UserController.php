@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+
 
 class UserController
 {
@@ -152,6 +154,40 @@ class UserController
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage() ?: 'Something went wrong'
+            ], 400);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
+    {
+        $request->validate([
+            'name' => 'string|required',
+            'district' => 'string|required',
+            'province' => 'string|required',
+            'venue' => 'string|required',
+            'description' => 'string|nullable',
+            'start_at' => 'date|required',
+            'end_at' => 'date|nullable|after_or_equal:start_at',
+        ]);
+
+        try {
+            Event::create([
+                'name' => $request->name,
+                'district' => $request->district,
+                'province' => $request->province,
+                'venue' => $request->venue,
+                'description' => $request->description,
+                'start_at' => $request->start_at,
+                'end_at' => $request->end_at,
+            ]);
+            return response()->json(['success' => true, 'message' => 'Event created successfully'], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage() ?: 'Failed to retrieve events'
             ], 400);
         }
     }

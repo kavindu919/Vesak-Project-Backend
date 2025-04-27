@@ -12,4 +12,6 @@ Route::group(['prefix' => 'users'], function () {
 });
 Route::group(['prefix' => 'events'], function () {
     Route::get('/', [EventController::class, 'index'])->name('get-allevents');
+    Route::get('/addevent', [EventController::class, 'getAddEvent'])->name('get-addevent');
+    Route::post('/createevent', [EventController::class, 'create'])->name('create-event');
 });
