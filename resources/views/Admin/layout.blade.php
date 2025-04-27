@@ -70,6 +70,7 @@
                 <span class="text-xl font-bold">@yield('title')</span>
                 <img src="https://picsum.photos/200/300" alt="User Avatar" class="w-10 h-10 rounded-full">
             </div>
+            @include('components.toast')
             <div class="h-full w-full p-4">
                 @yield('content')
             </div>
